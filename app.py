@@ -1,10 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
 import os
 import sqlite3
-import uuid  # Para criar nomes únicos para os arquivos
+import uuid
 
 app = Flask(__name__)
-app.secret_key = 'chave_secreta_segura'  # Necessária para usar flash messages
+app.secret_key = 'chave_secreta_segura'
 
 # Configurações
 UPLOAD_FOLDER_FOTOS = './uploads/fotos'
@@ -71,6 +71,16 @@ def consulta():
     pessoas = cursor.fetchall()
     conn.close()
     return render_template('consulta.html', pessoas=pessoas)
+
+# Rota para servir arquivos de fotos
+@app.route('/uploads/fotos/<filename>')
+def upload_foto(filename):
+    return send_from_directory(UPLOAD_FOLDER_FOTOS, filename)
+
+# Rota para servir arquivos de documentos
+@app.route('/uploads/documentos/<filename>')
+def upload_documento(filename):
+    return send_from_directory(UPLOAD_FOLDER_DOCUMENTOS, filename)
 
 # Inicializar banco de dados
 def init_db():

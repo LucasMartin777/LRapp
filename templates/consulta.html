@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consulta</title>
+</head>
+<body>
+    <h1>Consulta de Pessoas</h1>
+    <table border="1">
+        <tr>
+            <th>Nome</th>
+            <th>Idade</th>
+            <th>Foto</th>
+            <th>Documento</th>
+        </tr>
+        {% for pessoa in pessoas %}
+        <tr>
+            <td>{{ pessoa[1] }}</td>
+            <td>{{ pessoa[2] }}</td>
+            <td><img src="/uploads/fotos/{{ pessoa[3] }}" alt="Foto" width="100"></td>
+            <td><a href="/uploads/documentos/{{ pessoa[4] }}" target="_blank">Documento</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
